@@ -1,0 +1,2379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive EDIR Exam Checklist for Second-Year Radiology Resident</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2563eb',
+              secondary: '#f59e0b',
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+        .category-header:hover { background-color: #e5e7eb; }
+        .subtopic { margin-left: 1.5rem; }
+        .completed { text-decoration: line-through; color: #6b7280; }
+        .progress-bar { transition: width 0.3s ease-in-out; }
+        .hidden-topic { display: none; }
+        .optional-topic { color: #9ca3af; font-style: italic; background-color: #f3f4f6; border-radius: 0.25rem; }
+        .optional-badge { /* Text will be "Mark Optional" via JS, always visible */
+            margin-left: 0.25rem; /* Closer to its checkbox */
+            font-size: 0.9rem; /* Slightly larger for bigger checkbox */
+            color: #4b5563; /* Darker gray for label text */
+            font-style: normal; /* Not italic by default */
+            vertical-align: middle;
+        }
+        .optional-checkbox {
+            width: 1.25rem; /* Larger checkbox */
+            height: 1.25rem; /* Larger checkbox */
+            accent-color: #f59e0b; /* Amber color when checked */
+            border: 1px solid #d1d5db; /* Light grey border for unchecked state */
+            margin-left: 1rem; /* Keep original spacing from topic text */
+            vertical-align: middle;
+        }
+        .topic-checkbox {
+            width: 1.25rem; /* Larger checkbox */
+            height: 1.25rem; /* Larger checkbox */
+            margin-right: 0.75rem; /* Adjust spacing for larger checkbox */
+            vertical-align: middle;
+        }
+        .topic > span:first-of-type { /* Target the main topic text span */
+            font-size: 1.05rem; /* Slightly larger text */
+            vertical-align: middle;
+        }
+        /* Dark mode background overrides */
+        .dark .bg-white { background-color: #1f2937 !important; }
+        .dark .bg-gray-100 { background-color: #374151 !important; }
+        .dark .border-gray-200 { border-color: #4b5563 !important; }
+        .dark .category-header { background-color: #374151 !important; }
+    </style>
+    <link rel="manifest" href="manifest.json">
+    <style>
+      @media print {
+        body { background: white !important; color: black !important; }
+        #sticky-header, input, button { display: none !important; }
+        .category-content { page-break-inside: avoid; }
+        label { page-break-inside: avoid; }
+      }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 font-sans">
+    <div class="container mx-auto p-6 max-w-6xl">
+        <div class="fixed top-0 left-0 w-full z-30 bg-white dark:bg-gray-900 shadow transition-colors duration-300" id="sticky-header" style="padding-top: env(safe-area-inset-top);">
+            <div class="container mx-auto max-w-6xl flex justify-between items-center p-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-blue-700 dark:text-blue-300">EDIR Exam Checklist</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-3 py-1 rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition">🌙 Dark Mode</button>
+                </div>
+            </div>
+        </div>
+        <div style="height: 80px;"></div> <!-- Spacer for sticky header -->
+        <!-- Header -->
+        <header class="bg-blue-600 dark:bg-blue-700 text-white p-6 rounded-lg shadow-lg mb-6">
+            <h1 class="text-3xl font-bold">Comprehensive EDIR Exam Checklist</h1>
+            <p class="text-lg">For Second-Year Radiology Residents</p>
+            <p class="mt-2">A complete checklist covering all Level I Training modules (Years 1–3) from the ESR European Training Curriculum for Radiology, tailored for EDIR exam preparation. Check off topics and subtopics to track progress!</p>
+        </header>
+
+        <!-- Controls -->
+        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md mb-6">
+            <div class="mb-6 pb-6 border-b border-gray-200">
+                <h2 class="text-xl font-semibold mb-2">Progress</h2>
+                <div class="w-full bg-gray-200 rounded-full h-4 mb-2">
+                    <div id="progress-bar" class="progress-bar bg-blue-600 h-4 rounded-full" style="width: 0%"></div>
+                </div>
+                <p id="progress-text" class="text-sm mt-2">0% Complete (0/0 topics)</p>
+            </div>
+            <div class="flex flex-wrap gap-2 items-center mt-2">
+                <input id="search-box" type="text" placeholder="Search topics..." class="flex-1 min-w-[150px] bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-600 px-3 py-2 rounded placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                <button id="filter-btn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Hide Completed</button>
+                <button id="download-btn" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Download PDF</button>
+                <button id="reset-progress-btn" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">Reset Progress</button>
+                <button id="reset-optional-btn" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Reset Optional Marks</button>
+            </div>
+        </div>
+
+        <!-- Checklist -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md">
+            <!-- B-I-1 Breast Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-1 Breast Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-anatomy">
+                        <span>Understand anatomy and physiology of the female breast and changes with age</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-anatomy-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="axilla-anatomy">
+                        <span>Understand anatomy of the axilla</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="axilla-anatomy-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-variants">
+                        <span>Describe normal variants and abnormalities of the female breast</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-variants-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-clinical">
+                        <span>Understand clinical practice relevant to breast imaging</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-clinical-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mammography-views">
+                        <span>Describe standard and additional mammography views (e.g., mediolateral oblique, craniocaudal)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="mammography-views-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="tomosynthesis">
+                        <span>Be aware of tomosynthesis and contrast-enhanced mammography</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="tomosynthesis-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mammography-physics">
+                        <span>Understand physics in mammography (image acquisition, quality)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="mammography-physics-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="screening-principles">
+                        <span>Explain principles of breast cancer screening</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="screening-principles-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="screening-risk">
+                        <span>Understand risk/benefit analysis of breast cancer screening</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="screening-risk-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="other-imaging">
+                        <span>Describe applications of ultrasound and MRI in breast imaging</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="other-imaging-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="interventional-indications">
+                        <span>Describe indications/contraindications for image-guided interventional procedures</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="interventional-indications-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="disease-appearance">
+                        <span>Distinguish benign vs. malignant breast diseases on mammography, ultrasound, MRI</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="disease-appearance-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="birads">
+                        <span>Understand principles of ACR BI-RADS for mammography, ultrasound, MRI</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="birads-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="communication-principles">
+                        <span>Describe principles of communication (breaking bad news, consent)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="communication-principles-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="treatment-impact">
+                        <span>Understand impact of radiological diagnosis on treatment (e.g., mastectomy)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="treatment-impact-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="lymph-nodes">
+                        <span>Understand significance of pathological lymph nodes for further procedures</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="lymph-nodes-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/breast" class="text-blue-600">Radiopaedia</a>, ACR BI-RADS Atlas (5th Ed.), ESR e-learning (Breast module), Brant and Helms (Ch. 24)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-ultrasound">
+                        <span>Perform ultrasound examinations of breast and axilla under supervision</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-ultrasound-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-interventions">
+                        <span>Perform interventional breast procedures under ultrasound/X-ray guidance</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-interventions-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Breast module), Radiopaedia (Breast Interventions)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-justification">
+                        <span>Justify diagnostic imaging examinations of the breast</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-justification-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-method">
+                        <span>Choose best-suited method for evaluating breast disorders</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-method-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-consent">
+                        <span>Obtain informed consent for interventional procedures</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-consent-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mammography-parameters">
+                        <span>Choose optimal imaging parameters for mammography</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="mammography-parameters-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mammography-dose">
+                        <span>Apply techniques to reduce mammography exposure doses</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="mammography-dose-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-supervise">
+                        <span>Supervise technical staff to ensure appropriate images</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-supervise-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-reporting">
+                        <span>Report mammography, ultrasound, MRI using BI-RADS</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-reporting-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-limitations">
+                        <span>Appreciate own limitations and seek assistance</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-limitations-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-communication">
+                        <span>Communicate with patients to explain benign breast disease</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-communication-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-bad-news">
+                        <span>Observe and communicate bad news to patients</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-bad-news-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="breast-mdm">
+                        <span>Participate in multidisciplinary breast conferences/tumour boards</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="breast-mdm-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-2 Cardiac and Vascular Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-2 Cardiac and Vascular Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-anatomy">
+                        <span>Describe normal anatomy of heart, vessels, lymphatic system on radiographs, CT, MRI</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="cardiac-anatomy-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-xray">
+                        <span>Analyse chest X-ray for normal/abnormal cardiovascular structures</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="chest-xray-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="coronary-anatomy">
+                        <span>Describe major coronary anatomy using CT</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="coronary-anatomy-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="medications">
+                        <span>Know use of beta-blockers and nitroglycerin before coronary CTA</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="medications-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-variants">
+                        <span>Describe normal variants of cardiac, vascular, lymphatic systems</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="cardiac-variants-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="exposure-doses">
+                        <span>Understand mean exposure doses for radiographs/CT and dose reduction strategies</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="exposure-doses-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="digital-imaging">
+                        <span>Describe principles of digital imaging and processing for cardiovascular radiology</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="digital-imaging-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-ct">
+                        <span>Describe basic cardiovascular CT techniques (ECG-gating, contrast injection)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="cardiac-ct-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mri-sequences">
+                        <span>Know routinely used cardiovascular MRI sequences and imaging planes</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="mri-sequences-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-physiology">
+                        <span>Understand cardiac physiology in healthy and cardiopulmonary disease states</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="cardiac-physiology-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-pain">
+                        <span>Know differential diagnosis of acute and chronic chest pain</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="chest-pain-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ct-mri-indications">
+                        <span>Understand indications/contraindications for cardiovascular CT and MRI</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="ct-mri-indications-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="congenital-heart">
+                        <span>Understand principles and classification of congenital heart disease</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="congenital-heart-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chamber-dilatation">
+                        <span>Differentiate features of cardiac chamber dilatation/hypertrophy</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="chamber-dilatation-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ischaemic-heart">
+                        <span>Analyse diagnostic evaluation of ischaemic heart disease (CTA, MRI)</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="ischaemic-heart-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="radionuclide-imaging">
+                        <span>Understand basics of radionuclide imaging and coronary arteriography</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="radionuclide-imaging-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="myocarditis">
+                        <span>Identify MRI features of acute myocarditis</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="myocarditis-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-trauma">
+                        <span>Know typical morphological changes in cardiovascular trauma</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="cardiac-trauma-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="arterial-features">
+                        <span>Identify features of arterial stenosis, occlusion, aneurysm on Doppler ultrasound</span>
+                        <input type="checkbox" class="ml-4 optional-checkbox" data-topic="arterial-features-optional">
+                        <span class="optional-badge hidden">Optional</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="vascular-diseases">
+                        <span>Differentiate features of vasculitis, atheroma, thrombosis, aneurysmal dilatation</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="great-vessels">
+                        <span>Detect acute/chronic diseases of great vessels (aorta, pulmonary arteries)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pericardial-disease">
+                        <span>Understand radiological features of pericardial disease</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/cardiac" class="text-blue-600">Radiopaedia</a>, Brant and Helms (Ch. 15), ESR e-learning (Cardiac module), Dahnert (Cardiac section)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="vascular-ultrasound">
+                        <span>Perform ultrasound examinations of arteries and veins under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-dose-reduction">
+                        <span>Apply dose reduction techniques for radiographs/CT</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ct-protocol">
+                        <span>Plan and protocol ECG-gated CT examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mri-protocol">
+                        <span>Plan and protocol MRI examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="coronary-cta">
+                        <span>Report coronary CTA and basic cardiac MRI under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-post-processing">
+                        <span>Perform post-processing tasks (MPR, MIP, MinIP, VR, quantitative analysis)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-reports">
+                        <span>Provide clear and concise imaging reports</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-clinician-communication">
+                        <span>Communicate professionally with referring clinicians</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Cardiac module), Radiopaedia (Vascular Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-justification">
+                        <span>Justify diagnostic imaging/interventional procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-method">
+                        <span>Choose best-suited method for evaluating disorders</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-consent">
+                        <span>Obtain informed consent for procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-parameters">
+                        <span>Choose optimal imaging parameters</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-supervise">
+                        <span>Supervise technical staff for appropriate images</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-reporting">
+                        <span>Report imaging examinations with respect to common diseases</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-limitations">
+                        <span>Appreciate own limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-urgent">
+                        <span>Identify and communicate urgent/unexpected findings</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-patient">
+                        <span>Communicate imaging findings to patients</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cardiac-mdm">
+                        <span>Participate in multidisciplinary IR planning & follow-up meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-3 Chest Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-3 Chest Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-anatomy">
+                        <span>Describe anatomy of respiratory system, heart, vessels, mediastinum, chest wall</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-variants">
+                        <span>Describe normal variants of chest structures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-doses">
+                        <span>Understand mean exposure doses for chest radiographs/CT</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-dose-reduction">
+                        <span>Understand techniques to reduce exposure doses</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-digital">
+                        <span>Describe principles of digital imaging and processing for chest radiology</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-signs">
+                        <span>Understand significance of generic signs on chest radiographs/CT</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="silhouette-sign">
+                        <span>Silhouette sign: Loss of heart/diaphragm contour</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="air-bronchogram">
+                        <span>Air bronchogram: Indicates airless alveoli</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="air-crescent">
+                        <span>Air crescent sign: Solid material in lung cavity</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cervicothoracic">
+                        <span>Cervicothoracic sign: Mediastinal opacity projection</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="tapered-margins">
+                        <span>Tapered margins: Lesion borders and angles</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="finger-glove">
+                        <span>Finger in glove sign: Bronchial impaction</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="golden-s">
+                        <span>Golden S-sign: Lobar collapse with central mass</span>
+                    </label>
+                    <label class="flex items-center mb-2 subtopic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="deep-sulcus">
+                        <span>Deep sulcus sign: Pneumothorax on supine radiograph</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-referrals">
+                        <span>Understand imaging referrals for tailored chest imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-report">
+                        <span>Form meaningful report with conclusion and management plan</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-structures">
+                        <span>Identify key structures on PA/lateral chest radiographs (e.g., lobes, fissures, heart)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="device-placement">
+                        <span>Describe imaging features and complications of device placement (e.g., ET tube)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pleural-effusion">
+                        <span>Describe imaging features of pleural effusion and common causes</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pleural-masses">
+                        <span>Describe features of pleural-based masses with bone destruction</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hemidiaphragm">
+                        <span>Describe features of unilateral hemidiaphragm elevation and causes</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="tension-pneumothorax">
+                        <span>Describe clinical/imaging features of tension pneumothorax</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="aorta-dimensions">
+                        <span>Describe normal dimensions of the thoracic aorta</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="aortic-dissection">
+                        <span>Understand Stanford A/B classification of aortic dissection</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="lung-disease">
+                        <span>Know features of diffuse interstitial/parenchymal lung disease</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pulmonary-nodules">
+                        <span>Differentiate solitary/multiple pulmonary nodules</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="immunocompromised">
+                        <span>Differentiate thoracic diseases in immunocompromised patients</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="vascular-disorders">
+                        <span>Analyse disorders of pulmonary vascular system and great vessels</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-abnormalities">
+                        <span>Differentiate abnormalities of chest wall, mediastinum, pleura</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/chest" class="text-blue-600">Radiopaedia</a>, Felson's Principles of Chest Roentgenology (Ch. 1–10), ESR e-learning (Chest module), Brant and Helms (Ch. 17)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-acquisition">
+                        <span>Plan/supervise acquisition of chest radiographs, V/Q imaging, CT, CTPA</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="patient-positioning">
+                        <span>Correctly position patients for chest radiographs/CT</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-ct-plan">
+                        <span>Plan and report chest CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-mri-plan">
+                        <span>Plan and report chest MRI examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-post-processing">
+                        <span>Perform post-processing tasks (MPR, MIP, MinIP, vessel analysis)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-ultrasound">
+                        <span>Perform and interpret chest ultrasound examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pleural-aspiration">
+                        <span>Perform image-guided pleural fluid aspirations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-report-plan">
+                        <span>Form meaningful report with conclusion and management plan</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Chest module), Radiopaedia (Thoracic Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-justification">
+                        <span>Justify diagnostic imaging/interventional procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-method">
+                        <span>Choose best-suited method for evaluating chest disorders</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-consent">
+                        <span>Obtain informed consent for procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-parameters">
+                        <span>Choose optimal imaging parameters</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-protocols">
+                        <span>Design imaging protocols for CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-dose">
+                        <span>Apply dose reduction techniques</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-supervise">
+                        <span>Supervise technical staff for appropriate images</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-reporting">
+                        <span>Interpret and report chest imaging with respect to common diseases</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-limitations">
+                        <span>Appreciate own limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-urgent">
+                        <span>Identify and communicate urgent/unexpected findings</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-patient">
+                        <span>Communicate imaging findings to patients</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-biopsy">
+                        <span>Choose optimal biopsy routes and techniques</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-mdm">
+                        <span>Participate in multidisciplinary conferences/tumour boards</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-hrct">
+                        <span>Describe high-resolution CT protocols and indications</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-vq">
+                        <span>Understand ventilation–perfusion imaging techniques and indications</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="chest-device-placements">
+                        <span>Detail placement & complications of thoracic devices (e.g. Swan–Ganz catheter, chest drains)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- B-I-4 Emergency Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-4 Emergency Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-epidemiology">
+                        <span>Describe epidemiological data regarding emergencies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="injury-mechanisms">
+                        <span>Understand common mechanisms of injury and force distribution</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="severity-scores">
+                        <span>Understand principles of estimating emergency severity (e.g., ISS, pain scales)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="legal-aspects">
+                        <span>Describe potentially critical legal aspects</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hygiene-regulations">
+                        <span>Describe hygiene regulations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-guidelines">
+                        <span>Describe guidelines and SOPs for emergency cases</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-anatomy">
+                        <span>Describe relevant normal anatomy for emergency imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-variants">
+                        <span>Describe common normal variants vs. acute pathology</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="modalities-strengths">
+                        <span>Describe strengths/weaknesses of radiological modalities in ER</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-radiation-dose">
+                        <span>Describe factors/effects of radiation dose and dose reduction techniques</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="image-quality">
+                        <span>Describe criteria for good/poor image quality</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="contrast-risks">
+                        <span>Understand risks/benefits of contrast media</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="contrast-phases">
+                        <span>Describe phases of IV contrast application and their uses</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="oral-rectal-contrast">
+                      <span>Understand risks and benefits of oral/rectal/bladder contrast administration</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="iv-contrast-phases">
+                      <span>Describe phases of intravenous contrast media (plain, arterial, portal, delayed, hepatobiliary, urographic)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="eFAST-findings">
+                      <span>Identify pericardial effusion, pleural effusion, pneumothorax & free fluid on eFAST or emergency US</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="imaging-algorithms-nontrauma">
+                      <span>Describe imaging algorithms for non-traumatic emergencies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="imaging-algorithms-trauma">
+                      <span>Describe imaging algorithms for low-energy and high-energy trauma</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="pathophysiology-emergencies">
+                      <span>Describe pathophysiology & imaging findings of fractures, shock, ischaemia, embolism, laceration, torsion, severe infection</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/emergency" class="text-blue-600">Radiopaedia</a>, ESR e-learning (Emergency module), Brant and Helms (Ch. 14)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-protocol">
+                        <span>Protocol imaging examinations for emergency settings</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-report">
+                        <span>Interpret and report emergency imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-procedures">
+                        <span>Perform image-guided emergency procedures under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="eFAST">
+                        <span>Perform and interpret extended FAST (eFAST) or emergency thoraco-abdominal US</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="mass-casualty-protocols">
+                        <span>Apply CT protocols in CT-under-resuscitation & mass casualty incidents</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="femoral-artery-venous-puncture">
+                        <span>Perform femoral artery & venous puncture techniques</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Emergency module), Radiopaedia (Emergency Procedures)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-justification">
+                        <span>Justify imaging/procedures in emergency settings</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-consent">
+                        <span>Obtain informed consent</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-supervise">
+                        <span>Supervise technical staff</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-limitations">
+                        <span>Recognize limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="emergency-communication">
+                        <span>Communicate urgent findings effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="contrast-nephrotoxicity">
+                        <span>List risk factors & prevention strategies for contrast nephrotoxicity</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ethical-risk-benefit">
+                        <span>Perform ethical risk/benefit analysis in urgent imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="prioritise-findings">
+                        <span>Differentiate & prioritise imaging findings by urgency</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-5 Gastrointestinal and Abdominal Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-5 Gastrointestinal and Abdominal Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-anatomy">
+                        <span>Describe normal anatomy of GI tract, abdominal organs, vasculature</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-variants">
+                        <span>Describe normal variants and congenital anomalies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-pathophysiology">
+                        <span>Understand pathophysiology of common GI/abdominal diseases</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-modalities">
+                        <span>Describe indications, techniques, limitations of imaging modalities</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-contrast">
+                        <span>Understand use of oral/IV contrast media</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-diseases">
+                        <span>Recognize imaging features of common diseases (e.g., appendicitis, bowel obstruction)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-embryology">
+                      <span>Describe embryology of GI tract & abdominal organs</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-trauma">
+                      <span>Recognize imaging features of abdominal trauma (laceration, hemorrhage, perforation)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-chronic">
+                      <span>Describe imaging presentations of chronic abdominal diseases (inflammatory, fibrotic)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-staging">
+                      <span>Apply oncologic staging principles for abdominal & GI tumours</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-post-therapy">
+                      <span>Describe imaging evaluation after surgery, radiation & interventional therapy</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-interventional">
+                      <span>Understand indications & techniques for abdominal interventional procedures (drainage, biopsy)</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/abdomen-pelvis" class="text-blue-600">Radiopaedia</a>, Brant and Helms (Ch. 20–22), ESR e-learning (Abdominal module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-ultrasound">
+                        <span>Perform abdominal ultrasound examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-ct">
+                        <span>Plan and report abdominal CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-mri">
+                        <span>Plan and report abdominal MRI examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-post-processing">
+                        <span>Perform post-processing tasks for abdominal imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-ct-planning">
+                        <span>Plan & protocol abdominal CT with optimized contrast phases</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-us-techniques">
+                        <span>Perform diagnostic abdominal US & US-guided interventions</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-post-processing">
+                        <span>Perform post-processing for functional CT/MRI & quantification</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Abdominal module), Radiopaedia (Abdominal Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-justification">
+                        <span>Justify imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-consent">
+                        <span>Obtain informed consent</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-supervise">
+                        <span>Supervise technical staff</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-reporting">
+                        <span>Interpret and report imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-limitations">
+                        <span>Recognize limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-mdm">
+                        <span>Participate in multidisciplinary meetings for GI/abdominal cases</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-embryology">
+                        <span>Describe embryology of GI tract & abdominal organs</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-trauma">
+                        <span>Recognize imaging of abdominal trauma (laceration, hemorrhage, perforation)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-chronic">
+                        <span>Describe imaging features of chronic abdominal diseases (inflammatory, fibrotic)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-staging">
+                        <span>Apply oncologic staging principles for abdominal & GI tumours</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-posttherapy">
+                        <span>Describe imaging evaluation after surgery, radiation & interventional therapy</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gi-interventional">
+                        <span>Understand indications & techniques for abdominal interventional procedures (drainage, biopsy)</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- B-I-6 Gynaecological and Obstetric Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-6 Gynaecological and Obstetric Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-anatomy">
+                        <span>Describe normal anatomy of female pelvis and reproductive organs</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-physiology">
+                        <span>Understand physiology of pregnancy and menstrual cycle</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-pathology">
+                        <span>Recognize imaging features of common gynaecological/obstetric conditions</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-modalities">
+                        <span>Describe indications and techniques for ultrasound, MRI in gyn/ob imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="go-embryology">
+                      <span>Describe gynecological & obstetric embryology and physiological changes</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="go-foeto-placental">
+                      <span>Recognize imaging of foeto-placental trauma & acute abdominal disease in pregnancy</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="go-infertility">
+                      <span>Describe imaging in infertility & pelvic floor dysfunction</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="go-staging">
+                      <span>Apply staging principles for gynecologic malignancies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="go-interventional">
+                      <span>Understand indications & techniques for gynecologic interventions (e.g., HSG, ovarian cyst aspiration)</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/obstetrics" class="text-blue-600">Radiopaedia</a>, ESR e-learning (Gyn/Ob module), Brant and Helms (Ch. 25)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-ultrasound">
+                        <span>Perform pelvic ultrasound examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-mri">
+                        <span>Plan and report pelvic MRI examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-post-processing">
+                        <span>Perform post-processing tasks for gyn/ob imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-ta-tv-us">
+                        <span>Perform transabdominal & transvaginal US under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-mri-protocol">
+                        <span>Plan & protocol pelvic MRI including diffusion-weighted sequences</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Gyn/Ob module), Radiopaedia (Pelvic Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-justification">
+                        <span>Justify imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-consent">
+                        <span>Obtain informed consent</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-reporting">
+                        <span>Interpret and report imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="gyn-mdm">
+                        <span>Participate in gynaecological multidisciplinary meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-7 Head and Neck Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-7 Head and Neck Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-anatomy">
+                        <span>Describe normal anatomy of head and neck (skull, sinuses, neck structures)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-pathology">
+                        <span>Recognize imaging features of common head/neck diseases (e.g., sinusitis, tumors)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-modalities">
+                        <span>Describe indications and techniques for CT, MRI in head/neck imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-congenital">
+                      <span>Describe congenital head & neck lesions and vascular malformations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-trauma">
+                      <span>Recognize facial & skull fractures (Le Fort, orbital, mandibular)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-tmj">
+                      <span>Understand TMJ disorders and imaging protocols</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-thyroid-parathyroid">
+                      <span>Describe imaging features of thyroid & parathyroid disease; US-guided FNA</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                      <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-us-guided-fna">
+                      <span>Understand indications & technique for US-guided FNA in head & neck</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/head-neck" class="text-blue-600">Radiopaedia</a>, ESR e-learning (Head/Neck module), Brant and Helms (Ch. 11)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-ct">
+                        <span>Plan and report head/neck CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-mri">
+                        <span>Plan and report head/neck MRI examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-post-processing">
+                        <span>Use post-processing tools for skull base and vascular imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-us-fna">
+                        <span>Perform head & neck US and US-guided fine needle aspiration</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Head/Neck module), Radiopaedia (Head/Neck Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-justification">
+                        <span>Justify imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-reporting">
+                        <span>Interpret and report imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-urgent-findings">
+                        <span>Identify & communicate urgent head/neck findings</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="hn-mdm">
+                        <span>Participate in head & neck multidisciplinary tumour boards</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-8 Interventional Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-8 Interventional Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-principles">
+                        <span>Understand principles of interventional radiology (e.g., vascular access, embolization)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-indications">
+                        <span>Describe indications/contraindications for common IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-complications">
+                        <span>Recognize potential complications of IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-cirse-checklist">
+                        <span>Know the CIRSE checklist & safety standards for IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-sedation">
+                        <span>Understand sedation & analgesia pharmacology in IR</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-post-procedure-care">
+                        <span>Describe post-procedure patient monitoring & complication management</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-embolisation-techniques">
+                        <span>Understand principles of selective catheterisation & embolisation</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/interventional" class="text-blue-600">Radiopaedia</a>, ESR e-learning (IR module), Brant and Helms (Ch. 28)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-procedures">
+                        <span>Perform basic IR procedures (e.g., venous access) under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-imaging">
+                        <span>Use imaging guidance for IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-vascular-access">
+                        <span>Perform basic arterial & venous access techniques under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-embolisation">
+                        <span>Perform peripheral arteriography & angioplasty under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-drainage">
+                        <span>Perform image-guided abscess & nephrostomy drainages</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-resuscitation">
+                        <span>Perform emergency IR procedures including resuscitation under supervision</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (IR module), Radiopaedia (IR Techniques)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-justification">
+                        <span>Justify IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-consent">
+                        <span>Obtain informed consent and justify indications for IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-radiation-safety">
+                        <span>Optimize radiation dose for patient & staff during IR procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-complication-management">
+                        <span>Manage and coordinate emergency situations & complications in IR</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ir-mdm">
+                        <span>Take part in multidisciplinary IR planning & follow-up meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-9 Musculoskeletal Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-9 Musculoskeletal Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-anatomy">
+                        <span>Describe normal anatomy of bones, joints, muscles, soft tissues</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-pathology">
+                        <span>Recognize imaging features of fractures, arthritis, tumors</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-modalities">
+                        <span>Describe indications and techniques for X-ray, CT, MRI in MSK imaging</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/musculoskeletal" class="text-blue-600">Radiopaedia</a>, Yochum and Rowe's Essentials of Skeletal Radiology (Ch. 1–5), ESR e-learning (MSK module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-xray">
+                        <span>Interpret MSK X-rays under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-mri">
+                        <span>Plan and report MSK MRI examinations</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (MSK module), Radiopaedia (MSK Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-justification">
+                        <span>Justify imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-reporting">
+                        <span>Interpret and report imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="msk-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-10 Neuroradiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-10 Neuroradiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-anatomy">
+                        <span>Describe normal anatomy of brain, spine, peripheral nerves</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-pathology">
+                        <span>Recognize imaging features of stroke, tumors, trauma</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-modalities">
+                        <span>Describe indications and techniques for CT, MRI in neuroradiology</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: <a href="https://www.radiopaedia.org/sections/neuroradiology" class="text-blue-600">Radiopaedia</a>, Osborn's Brain (Ch. 1–3), ESR e-learning (Neuro module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-ct">
+                        <span>Plan and report brain/spine CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-mri">
+                        <span>Plan and report brain/spine MRI examinations</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Neuro module), Radiopaedia (Neuro Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-justification">
+                        <span>Justify imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-reporting">
+                        <span>Interpret and report imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="neuro-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-11 Paediatric Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-11 Paediatric Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-anatomy">
+                        <span>Describe normal anatomy of pediatric patients across age groups</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-variants">
+                        <span>Identify normal variants and congenital anomalies in pediatric imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-pathology">
+                        <span>Recognize imaging features of common pediatric conditions (e.g., hip dysplasia, pneumonia)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-modalities">
+                        <span>Describe indications, techniques, and limitations of X-ray, ultrasound, CT, MRI in pediatric imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-dose">
+                        <span>Understand radiation dose considerations and ALARA principles in pediatric imaging</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, Caffey's Pediatric Diagnostic Imaging (Ch. 1–10), ESR e-learning (Paediatric module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-ultrasound">
+                        <span>Perform pediatric ultrasound examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-xray">
+                        <span>Interpret pediatric X-rays under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-ct">
+                        <span>Plan and report pediatric CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-mri">
+                        <span>Plan and report pediatric MRI examinations</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Paediatric module), Radiopaedia (Paediatric Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-justification">
+                        <span>Justify imaging examinations in pediatric patients</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-method">
+                        <span>Choose best-suited imaging method for pediatric conditions</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-consent">
+                        <span>Obtain informed consent from guardians</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-supervise">
+                        <span>Supervise technical staff for appropriate pediatric images</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-reporting">
+                        <span>Interpret and report pediatric imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-limitations">
+                        <span>Recognize limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-communication">
+                        <span>Communicate findings effectively to guardians and clinicians</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="paed-mdm">
+                        <span>Participate in multidisciplinary pediatric meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-12 Urogenital Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-12 Urogenital Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-anatomy">
+                        <span>Describe normal anatomy of kidneys, ureters, bladder, and genitalia</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-physiology">
+                        <span>Understand physiology of the urogenital system</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-pathology">
+                        <span>Recognize imaging features of common urogenital conditions (e.g., renal stones, tumors)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-modalities">
+                        <span>Describe indications and techniques for ultrasound, CT, MRI in urogenital imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-contrast">
+                        <span>Understand use of contrast media in urogenital imaging</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, ESR e-learning (Urogenital module), Brant and Helms (Ch. 23)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-ultrasound">
+                        <span>Perform urogenital ultrasound examinations under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-ct">
+                        <span>Plan and report urogenital CT examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-mri">
+                        <span>Plan and report urogenital MRI examinations</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Urogenital module), Radiopaedia (Urogenital Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-justification">
+                        <span>Justify urogenital imaging examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-method">
+                        <span>Choose best-suited imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-consent">
+                        <span>Obtain informed consent</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-supervise">
+                        <span>Supervise technical staff</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-reporting">
+                        <span>Interpret and report urogenital imaging studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-limitations">
+                        <span>Recognize limitations and seek assistance</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="uro-mdm">
+                        <span>Participate in multidisciplinary meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (<a href="https://edir.myabrorg/public/sample/?id=2956" class="text-blue-600">MRQs</a>, <a href="https://edir.myabrorg/public/sample/?id=2957" class="text-blue-600">SCs</a>)</p>
+                </div>
+            </div>
+
+            <!-- B-I-13 Nuclear Medicine as Basic Training -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-13 Nuclear Medicine as Basic Training</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-principles">
+                        <span>Understand basic principles of nuclear medicine (e.g., radiopharmaceuticals, gamma cameras)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-modalities">
+                        <span>Describe indications for PET/CT, SPECT/CT, and scintigraphy</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-safety">
+                        <span>Understand radiation safety and handling of radiopharmaceuticals</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-pathology">
+                        <span>Recognize common findings in nuclear medicine imaging (e.g., bone scans, thyroid scans)</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, ESR e-learning (Nuclear Medicine module), Dahnert (Nuclear Medicine section)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-interpretation">
+                        <span>Interpret basic nuclear medicine studies under supervision</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-protocols">
+                        <span>Assist in planning nuclear medicine imaging protocols</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Nuclear Medicine module), Radiopaedia (Nuclear Medicine Imaging)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-justification">
+                        <span>Justify nuclear medicine examinations</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-method">
+                        <span>Choose appropriate nuclear medicine imaging method</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-safety-compliance">
+                        <span>Ensure compliance with radiation safety protocols</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="nm-communication">
+                        <span>Communicate findings effectively</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-14 Radiation Protection Education and Training -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-14 Radiation Protection Education and Training</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-principles">
+                        <span>Understand ALARA principle and radiation protection principles</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-dose-limits">
+                        <span>Know radiation dose limits (e.g., 20 mSv/year for workers)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-monitoring">
+                        <span>Describe radiation monitoring techniques (e.g., TLD badges)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-pregnancy">
+                        <span>Understand imaging guidelines and risks in pregnancy</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-regulations">
+                        <span>Know European radiation protection regulations (e.g., EURATOM)</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, ICRP Publication 103, ESR e-learning (Radiation Protection module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-dose-reduction">
+                        <span>Apply dose reduction techniques in imaging</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-monitoring-use">
+                        <span>Use radiation monitoring equipment</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Radiation Protection module), Radiopaedia (Radiation Safety)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-justification">
+                        <span>Justify imaging procedures to minimize radiation exposure</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-compliance">
+                        <span>Ensure compliance with radiation protection protocols</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="rp-communication">
+                        <span>Communicate radiation risks to patients and staff</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-15 Principles of Imaging Technology & Molecular Imaging -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-15 Principles of Imaging Technology & Molecular Imaging</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-xray">
+                        <span>Understand physics of X-ray imaging (production, interaction, image formation)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-ct">
+                        <span>Describe CT principles (Hounsfield units, windowing, protocols)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-mri">
+                        <span>Understand MRI physics (T1/T2 weighting, sequences, safety)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-ultrasound">
+                        <span>Describe ultrasound principles (Doppler, probe types, artefacts)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-molecular">
+                        <span>Understand basics of molecular imaging (e.g., PET, SPECT)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-pacs">
+                        <span>Describe PACS and radiology information systems</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, Brant and Helms (Ch. 1–3), ESR e-learning (Physics module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-protocol">
+                        <span>Optimize imaging protocols for X-ray, CT, MRI, ultrasound</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-pacs-use">
+                        <span>Use PACS for image storage and retrieval</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Physics module), Radiopaedia (Imaging Technology)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-optimization">
+                        <span>Ensure optimal image quality with minimal radiation</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-safety">
+                        <span>Adhere to safety protocols for imaging technologies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="it-communication">
+                        <span>Communicate technical considerations to colleagues</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-16 Principles of Medical Imaging Informatics -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-16 Principles of Medical Imaging Informatics</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-pacs-ris">
+                        <span>Understand PACS, RIS, and hospital information systems</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-dicom">
+                        <span>Describe DICOM standards and image sharing</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-ai">
+                        <span>Know basics of AI and computer-aided detection (CADe, CADx)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-radiomics">
+                        <span>Understand principles of imaging biomarkers and radiomics</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-regulations">
+                        <span>Know GDPR and other informatics regulations</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: Radiopaedia, ESR e-learning (Imaging Informatics module)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-workstation">
+                        <span>Use workstations for quantitative imaging results</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-structured-reporting">
+                        <span>Incorporate quantitative results into structured reports</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-dose-management">
+                        <span>Use radiation dose registration systems</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Imaging Informatics module), Radiopaedia (Informatics)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-efficiency">
+                        <span>Use IT to improve efficiency and quality of care</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-communication">
+                        <span>Communicate proactively with peers and clinicians</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ii-advocacy">
+                        <span>Advocate for imaging informatics projects</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-17 Communication and Management -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-17 Communication and Management</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-consent">
+                        <span>Understand principles of informed consent</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-ethics">
+                        <span>Know ethical considerations in radiology (e.g., incidental findings)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-reporting">
+                        <span>Understand structured reporting principles</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-mdm">
+                        <span>Describe role of radiologists in multidisciplinary meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), Radiopaedia (Radiology Communication)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-reports">
+                        <span>Write structured radiology reports</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-patient-communication">
+                        <span>Communicate effectively with patients and families</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-clinician-communication">
+                        <span>Communicate findings to referring clinicians</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), Radiopaedia (Communication Skills)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-professionalism">
+                        <span>Exhibit professionalism in patient and colleague interactions</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-ethics-adherence">
+                        <span>Adhere to ethical standards in radiology practice</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="cm-mdm-participation">
+                        <span>Actively participate in multidisciplinary meetings</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-18 Research and Evidence-Based Medicine -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-18 Research and Evidence-Based Medicine</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-principles">
+                        <span>Understand principles of evidence-based medicine</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-statistics">
+                        <span>Know basic statistical methods for radiology research</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-literature">
+                        <span>Understand how to critically appraise radiological literature</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-research">
+                        <span>Describe research design and methodology in radiology</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Research module), Radiopaedia (Research Basics), "How to Read a Paper" by Greenhalgh</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-appraisal">
+                        <span>Critically appraise radiological studies</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-questions">
+                        <span>Formulate clinical research questions</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-statistics-use">
+                        <span>Apply basic statistical analysis to research data</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Research module), Radiopaedia (Statistics in Radiology)</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-integration">
+                        <span>Integrate evidence-based findings into clinical practice</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-contribution">
+                        <span>Contribute to radiology research projects</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ebm-communication">
+                        <span>Communicate research findings effectively</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+
+            <!-- B-I-19 Sustainability in Radiology -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">B-I-19 Sustainability in Radiology</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Knowledge</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-environment">
+                        <span>Understand environmental impact of radiology (e.g., energy use, waste)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-practices">
+                        <span>Know sustainable practices in radiology (e.g., equipment efficiency)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-regulations">
+                        <span>Understand regulations promoting sustainability in healthcare</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="equipment-lifecycle">
+                        <span>Understand the importance of equipment lifecycle management and recycling</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="contrast-media-environment">
+                        <span>Be aware of environmental considerations in contrast media usage and disposal</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="green-hospital">
+                        <span>Understand the role of radiology departments in hospital-wide sustainability initiatives</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Sustainability module), Radiopaedia (Sustainability in Radiology), ESR Sustainability Subcommittee publications</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Skills</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-implementation">
+                        <span>Implement sustainable imaging practices</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-audit">
+                        <span>Conduct audits to assess sustainability in radiology</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="protocol-optimization">
+                        <span>Apply imaging protocol adjustments to reduce energy and material consumption</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="resource-awareness">
+                        <span>Demonstrate awareness in daily practice of consumable use (contrast, disposables)</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Sustainability module), Radiopaedia (Sustainable Practices), Green Radiology initiatives</p>
+                    <h3 class="text-lg font-semibold mb-2 mt-4">Competences and Attitudes</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-advocacy">
+                        <span>Advocate for sustainable practices in radiology</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-integration">
+                        <span>Integrate sustainability into daily radiology practice</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="sus-communication">
+                        <span>Communicate sustainability goals to colleagues</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="ethical-sustainability">
+                        <span>Integrate sustainability considerations into ethical decision-making</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="continuous-improvement">
+                        <span>Participate in quality improvement initiatives aimed at enhancing environmental responsibility</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs), hospital green teams, peer-reviewed articles on sustainability in radiology</p>
+                </div>
+            </div>
+
+            <!-- EPAs -->
+            <div class="category">
+                <div class="category-header cursor-pointer p-4 bg-gray-100 border-b flex justify-between items-center" onclick="toggleCategory(this)">
+                    <h2 class="text-xl font-semibold">EPAs</h2>
+                    <span>▼</span>
+                </div>
+                <div class="category-content p-4">
+                    <h3 class="text-lg font-semibold mb-2">Competences</h3>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-team">
+                        <span>Collaborate as a member of an interprofessional team</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-protocol">
+                        <span>Triage/protocol imaging exams</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-interpret">
+                        <span>Interpret exams and prioritize differential diagnoses (e.g., chest CT)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-communicate">
+                        <span>Communicate exam results effectively</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-recommend">
+                        <span>Recommend appropriate next steps</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-procedures">
+                        <span>Obtain informed consent and perform procedures (e.g., breast biopsy)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-management">
+                        <span>Manage patients post-imaging/procedures</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-research">
+                        <span>Formulate clinical questions and retrieve evidence</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-professionalism">
+                        <span>Behave professionally (e.g., leading multidisciplinary meetings)</span>
+                    </label>
+                    <label class="flex items-center mb-2 topic">
+                        <input type="checkbox" class="mr-2 topic-checkbox" data-topic="epa-safety">
+                        <span>Identify system failures and contribute to safety culture</span>
+                    </label>
+                    <p class="text-sm text-gray-600 ml-6 mb-2">Resources: ESR e-learning (Professional Skills module), EBR Self-Assessment (MRQs, SCs)</p>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <footer class="mt-6 text-center text-gray-600">
+            <p>Based on the ESR Training Curriculum for Radiology (Level I, 2025). For more details, visit <a href="https://www.myesr.org/education/training-curricula" class="text-blue-600">ESR Training Curricula</a>.</p>
+            <p>Designed for second-year radiology residents preparing for the EDIR exam.</p>
+        </footer>
+    </div>
+    <script>
+        // Toggle category visibility
+        function toggleCategory(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('span');
+            content.classList.toggle('hidden');
+            arrow.textContent = content.classList.contains('hidden') ? '▼' : '▲';
+        }
+        // Load saved checkbox states
+        const checkboxes = document.querySelectorAll('.topic-checkbox');
+        checkboxes.forEach(checkbox => {
+            const topic = checkbox.dataset.topic;
+            checkbox.checked = localStorage.getItem(topic) === 'true';
+            updateLabel(checkbox);
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(topic, checkbox.checked);
+                updateLabel(checkbox);
+                updateProgress();
+                updateFilter();
+            });
+        });
+        // Update label style based on checkbox state
+        function updateLabel(checkbox) {
+            const label = checkbox.nextElementSibling;
+            if (checkbox.checked) {
+                label.classList.add('completed');
+            } else {
+                label.classList.remove('completed');
+            }
+        }
+        // Update progress bar
+        function updateProgress() {
+            const total = checkboxes.length;
+            const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+            const percentage = (completed / total) * 100;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+            document.getElementById('progress-text').textContent = `${Math.round(percentage)}% Complete (${completed}/${total} topics)`;
+        }
+        // Filter completed topics
+        let filterActive = false;
+        document.getElementById('filter-btn').addEventListener('click', () => {
+            filterActive = !filterActive;
+            document.getElementById('filter-btn').textContent = filterActive ? 'Show All' : 'Hide Completed';
+            updateFilter();
+        });
+        function updateFilter() {
+            const query = searchBox.value.trim().toLowerCase();
+            document.querySelectorAll('.topic, .subtopic').forEach(el => {
+                const textSpan = el.querySelector('span:first-of-type');
+                const text = textSpan ? textSpan.textContent.toLowerCase() : '';
+                const matchesSearch = !query || text.includes(query);
+                const isCompleted = el.querySelector('.topic-checkbox')?.checked;
+                const matchesFilter = !filterActive || !isCompleted;
+                el.style.display = (matchesSearch && matchesFilter) ? 'flex' : 'none';
+            });
+            // Hide entire sections with no matching topics
+            document.querySelectorAll('.category').forEach(cat => {
+                const content = cat.querySelector('.category-content');
+                const topics = content.querySelectorAll('.topic, .subtopic');
+                const hasVisible = Array.from(topics).some(t => t.style.display !== 'none');
+                cat.style.display = hasVisible ? '' : 'none';
+            });
+        }
+        // Download PDF
+        document.getElementById('download-btn').addEventListener('click', () => {
+            window.print();
+        });
+        // Initialize
+        updateProgress();
+        document.querySelectorAll('.category-content').forEach(content => content.classList.remove('hidden'));
+
+        // Function to apply styles for optional topics
+        function applyOptionalStyles(optionalCheckbox) {
+            const topicElement = optionalCheckbox.closest('.topic'); // The parent <label class="topic">
+            // const optionalBadge = optionalCheckbox.nextElementSibling; // No longer manage badge visibility here
+
+            if (optionalCheckbox.checked) {
+                topicElement.classList.add('optional-topic');
+            } else {
+                topicElement.classList.remove('optional-topic');
+            }
+        }
+
+        // Load saved optional checkbox states and add event listeners
+        const optionalCheckboxes = document.querySelectorAll('.optional-checkbox');
+        optionalCheckboxes.forEach(checkbox => {
+            const optionalTopicKey = checkbox.dataset.topic; // e.g., "breast-anatomy-optional"
+            const optionalBadge = checkbox.nextElementSibling;
+
+            // Configure the badge to be a permanent label
+            if (optionalBadge && optionalBadge.classList.contains('optional-badge')) {
+                optionalBadge.textContent = 'Mark Optional';
+                optionalBadge.classList.remove('hidden');
+            }
+
+            // Ensure a key exists before attempting to load from localStorage
+            if (optionalTopicKey) {
+                const isChecked = localStorage.getItem(optionalTopicKey) === 'true';
+                checkbox.checked = isChecked;
+                applyOptionalStyles(checkbox); // Apply style on load
+
+                checkbox.addEventListener('change', () => {
+                    localStorage.setItem(optionalTopicKey, checkbox.checked);
+                    applyOptionalStyles(checkbox);
+                });
+            }
+        });
+
+        // Search filter: update on input
+        const searchBox = document.getElementById('search-box');
+        searchBox.addEventListener('input', updateFilter);
+
+        // Section controls: select all/none per category
+        function selectSection(button, select) {
+            const content = button.closest('.category-content');
+            const sectionCheckboxes = content.querySelectorAll('.topic-checkbox');
+            sectionCheckboxes.forEach(cb => {
+                cb.checked = select;
+                localStorage.setItem(cb.dataset.topic, cb.checked);
+                updateLabel(cb);
+            });
+            updateProgress();
+            updateFilter();
+        }
+
+        document.querySelectorAll('.category-content').forEach(content => {
+            const controlsDiv = document.createElement('div');
+            controlsDiv.className = 'mb-4 flex flex-wrap gap-2';
+            const selectAllBtn = document.createElement('button');
+            selectAllBtn.className = 'bg-green-100 hover:bg-green-200 text-green-800 px-2 py-1 rounded';
+            selectAllBtn.textContent = 'Select All';
+            selectAllBtn.addEventListener('click', () => selectSection(selectAllBtn, true));
+            const selectNoneBtn = document.createElement('button');
+            selectNoneBtn.className = 'bg-red-100 hover:bg-red-200 text-red-800 px-2 py-1 rounded';
+            selectNoneBtn.textContent = 'Select None';
+            selectNoneBtn.addEventListener('click', () => selectSection(selectNoneBtn, false));
+            controlsDiv.appendChild(selectAllBtn);
+            controlsDiv.appendChild(selectNoneBtn);
+            // Mini progress bar
+            const miniProgress = document.createElement('div');
+            miniProgress.className = 'w-1/2 bg-gray-200 rounded-full h-2 my-2';
+            const miniBar = document.createElement('div');
+            miniBar.className = 'bg-blue-400 h-2 rounded-full transition-all duration-300';
+            miniBar.style.width = '0%';
+            miniProgress.appendChild(miniBar);
+            controlsDiv.appendChild(miniProgress);
+            content.insertBefore(controlsDiv, content.firstChild);
+            // Store for later update
+            content._miniBar = miniBar;
+        });
+
+        function updateSectionProgress() {
+            document.querySelectorAll('.category-content').forEach(content => {
+                const checkboxes = content.querySelectorAll('.topic-checkbox');
+                const total = checkboxes.length;
+                const completed = Array.from(checkboxes).filter(cb => cb.checked).length;
+                const percent = total ? (completed / total) * 100 : 0;
+                if (content._miniBar) {
+                    content._miniBar.style.width = percent + '%';
+                    content._miniBar.title = `${Math.round(percent)}% (${completed}/${total})`;
+                }
+            });
+        }
+        // Call after any update
+        function updateAllProgress() {
+            updateProgress();
+            updateSectionProgress();
+        }
+        // Replace updateProgress calls
+        updateAllProgress();
+        // Patch all event listeners to call updateAllProgress instead of updateProgress
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(checkbox.dataset.topic, checkbox.checked);
+                updateLabel(checkbox);
+                updateAllProgress();
+                updateFilter();
+            });
+        });
+        document.getElementById('reset-progress-btn').addEventListener('click', () => {
+            checkboxes.forEach(cb => {
+                cb.checked = false;
+                localStorage.removeItem(cb.dataset.topic);
+                updateLabel(cb);
+            });
+            updateAllProgress();
+            updateFilter();
+        });
+        // Also call after selectSection
+        function selectSection(button, select) {
+            const content = button.closest('.category-content');
+            const sectionCheckboxes = content.querySelectorAll('.topic-checkbox');
+            sectionCheckboxes.forEach(cb => {
+                cb.checked = select;
+                localStorage.setItem(cb.dataset.topic, cb.checked);
+                updateLabel(cb);
+            });
+            updateAllProgress();
+            updateFilter();
+        }
+
+        // Global resets
+        document.getElementById('reset-optional-btn').addEventListener('click', () => {
+            optionalCheckboxes.forEach(cb => {
+                cb.checked = false;
+                localStorage.removeItem(cb.dataset.topic);
+                applyOptionalStyles(cb);
+            });
+        });
+
+        // PHASE 2: Theme switcher logic
+        const themeToggle = document.getElementById('theme-toggle');
+        function setTheme(dark) {
+            if (dark) {
+                document.documentElement.classList.add('dark');
+                themeToggle.textContent = '☀️ Light Mode';
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeToggle.textContent = '🌙 Dark Mode';
+            }
+            localStorage.setItem('edir-theme', dark ? 'dark' : 'light');
+        }
+        // Load theme
+        setTheme(localStorage.getItem('edir-theme') === 'dark');
+        themeToggle.addEventListener('click', () => {
+            setTheme(!document.documentElement.classList.contains('dark'));
+        });
+
+        // PWA: Service Worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(() => console.log('Service Worker registered'))
+                    .catch(err => console.error('SW registration failed:', err));
+            });
+        }
+
+        // Import Progress UI
+        const controlsContainer = document.querySelector('.bg-white.dark\:bg-gray-800.p-4');
+        const importBtn = document.createElement('button');
+        importBtn.id = 'import-btn';
+        importBtn.className = 'bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700';
+        importBtn.textContent = 'Import Progress';
+        controlsContainer.querySelector('.flex.items-center').appendChild(importBtn);
+        const importInput = document.createElement('input');
+        importInput.type = 'file';
+        importInput.accept = 'application/json';
+        importInput.id = 'import-input';
+        importInput.style.display = 'none';
+        document.body.appendChild(importInput);
+        importBtn.addEventListener('click', () => importInput.click());
+        importInput.addEventListener('change', event => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (data.checkboxes) {
+                            Object.entries(data.checkboxes).forEach(([k,v]) => localStorage.setItem(k, v));
+                        }
+                        if (data.optionals) {
+                            Object.entries(data.optionals).forEach(([k,v]) => localStorage.setItem(k, v));
+                        }
+                        location.reload();
+                    } catch { alert('Invalid JSON file'); }
+                };
+                reader.readAsText(file);
+            }
+        });
+
+        // Deep linking, tooltips, tap targets, animations, persist category state
+        document.querySelectorAll('.category-header').forEach(header => {
+            const title = header.querySelector('h2').textContent.trim();
+            const key = 'cat-' + title.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9\-]/g,'');
+            const category = header.parentElement;
+            category.id = key;
+            // Anchor link
+            const anchor = document.createElement('a');
+            anchor.href = '#' + key;
+            anchor.className = 'ml-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300';
+            anchor.textContent = '🔗';
+            header.querySelector('h2').appendChild(anchor);
+            const content = header.nextElementSibling;
+            // Restore open/closed state
+            if (localStorage.getItem(key) === 'closed') {
+                content.classList.add('hidden');
+                header.querySelector('span').textContent = '▼';
+            }
+            // Replace toggleCategory
+            header.onclick = () => {
+                const isHidden = content.classList.toggle('hidden');
+                header.querySelector('span').textContent = isHidden ? '▼' : '▲';
+                localStorage.setItem(key, isHidden ? 'closed' : 'open');
+            };
+        });
+
+        // Increased tap targets & line-height
+        document.querySelectorAll('.topic, .subtopic').forEach(el => {
+            el.style.padding = '0.75rem';
+            el.style.lineHeight = '1.75rem';
+        });
+
+        // Smooth checkbox animations
+        const animStyle = document.createElement('style');
+        animStyle.textContent = '\n.topic-checkbox { transition: transform 0.15s ease-in-out; } .topic-checkbox:checked { transform: scale(1.1); }';
+        document.head.appendChild(animStyle);
+
+        // Info-icon tooltips for guidance (empty placeholders)
+        document.querySelectorAll('.topic > span:first-of-type').forEach(span => {
+            const info = document.createElement('span');
+            info.className = 'ml-1 text-blue-400 cursor-pointer';
+            info.textContent = 'ℹ️';
+            info.title = 'More info...';
+            span.parentElement.insertBefore(info, span.nextSibling);
+        });
+    </script>
+</body>
+</html>
